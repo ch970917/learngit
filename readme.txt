@@ -5,3 +5,5 @@ Git tracks changes.
 zhen de ke yi ?
 bu xin!
 Creating a new branch is quick.
+
+Creating a new branch is quick & simple.
