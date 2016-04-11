@@ -1,0 +1,78 @@
+Git分：工作区、版本库{暂存区stage(index)、HEAD指向—>分支master}
+
+
+创建版本库
+pwd			显示当前目录
+cd			进入该目录
+git init		将该目录变成Git可以管理的仓库
+
+修改及提交
+git status		命令可以让我们时刻掌握仓库当前的状态
+git diff		查看修改了哪些内容
+git add			添加到仓库
+git commit		提交到仓库
+git log 		查看历史修改
+git log --pretty=oneline	简略版查看历史修
+HEAD			当前版本
+HEAD^			上一个版本
+HEAD^^			上上一个版本
+HEAD~100		往上一百个版本
+git reset --hard HEAD^ 		往上一个版本
+cat readme.txt		查看readme里的内容
+git reset --hard _____	_____为要跳到的记录的版本号如:321s45asds4daf654sad65fa
+git reflog 		查看历史每次修改序列号
+git checkout -- readme.txt	把readme.txt文件在工作区的修改全部撤销
+git reset HEAD file	把暂存区的修改撤销掉，重新放回工作区
+小结
+场景1：当你改乱了工作区某个文件的内容，想直接丢弃工作区的修改时，
+       用命令git checkout -- file。
+场景2：当你不但改乱了工作区某个文件的内容，还添加到了暂存区时，
+       想丢弃修改，分两步，第一步用命令git        reset HEAD file，就回到了场景1，第二步按场景1操作。
+场景3：已经提交了不合适的修改到版本库时，想要撤销本次提交，
+       则用版本回退，前提是没有推送到远程库。
+
+rm test.txt		删除工作区里的test.txt文件
+（用完rm test.txt后你可以选择版本库里的也删除或者撤销删除）
+git rm test.txt		确实删掉
+git commit -m"备注"	两步
+git checkout -- test.txt	撤销，实则将版本库里的替换到工作区
+
+git remote add origin git@github.com:ch970917/learngit.git
+git remote add origin git@server-name:path/repo-name.git	关联远程库
+git push -u origin master	第一次推送master分支的所有内容
+git push origin master		此后，每次本地提交后，就可以使用此推送最新修改
+git clone git@github.com:ch970917/gitskills.git		将远程库里的克隆到本地  https://github.com/ch970917/gitskills			该被克隆的网址
+
+git branch dev		创建dev分支
+git checkout -b dev	创建并切换到dev分支
+-b 			加上-b表示创建并切换git branch dev
+git branch	 	列出所有分支，当前分支前带*
+git checkout dev	转到dev分支
+git branch -d dev	删除dev分支
+git merge dev		将dev合并到当前分支
+git log --graph	 	显示分支合并图
+git log --graph --pretty=oneline --abbrev-commit	简略版分支合并图
+Fast forward		通常的合并模式，删除分支，会丢掉分支信息
+--no-ff 		强制禁用fast forward模式
+git stash		储存当前工作现场，然后去修复bug
+git stash list 		显示已经储存的工作现场
+（恢复工作现场两种方式）
+git stash apply		恢复后stash的内容不删除
+git stash pop		恢复的同时stash的内容也删了
+git stash apply stash@{0}	恢复指定的stash
+git remote 		查看远程仓库
+git remote -v		显示更详细的信息
+origin			远程仓库的默认名称
+git push origin master	提交本地master分支到origin远程库
+git checkout -b dev origin/dev	创建远程origin的dev分支到本地
+git push origin dev	提交本地dev分支到origin远程库
+git branch --set-upstream dev origin/dev	创建本地分支和远程分支的关联
+git tag v0.1		新建一个v0.1的标签
+git tag -a v0.11 -m "英文备注"			可以指定标签信息
+git tag -s v0.11 -m "英文备注"			用PGP签名标签
+git tag 		查看所有的标签
+git log --pretty=oneline --abbrev-commit	查看历史分子信息
+git push origin v1.0	推送本地标签v1.0到远程库
+git push origin --tags 	推送全部未推送过的本地标签
+git tag -d v0.1		删除一个本地标签v0.1
+git push origin :refs/tags/v0.1			删除一个远程标签
